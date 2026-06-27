@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Europa</title>
+  <style>
+    :root{
+      --bg:#050712;
+      --panel:#101320;
+      --panel-border:#2b3040;
+      --moon-dark:#353843;
+      --moon-mid:#666a76;
+      --moon-light:#888c98;
+      --crater:#20232c;
+      --ridge:#4b4f5c;
+      --grid-line:rgba(255,255,255,.48);
+      --button:#171b2a;
+      --button-border:#343a50;
+      --button-glow:rgba(190,205,255,.16);
+    }
+
+    *{box-sizing:border-box}
+
+    html,body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 16% 0%, rgba(165,185,255,.13), transparent 30%),
+        radial-gradient(circle at 90% 10%, rgba(255,255,255,.06), transparent 24%),
+        var(--bg);
+      font-family:Arial, Helvetica, sans-serif;
+      overflow:hidden;
+    }
+
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px;
+    }
+
+    #app{
+      width:min(100vw, 720px);
+      height:100vh;
+      max-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:10px;
+      padding:10px 0;
+    }
+
+    #stage{
+      background:rgba(16,19,32,.92);
+      border:1px solid var(--panel-border);
+      border-radius:16px;
+      padding:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 10px 24px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+
+    #grid{
+      display:grid;
+      grid-template-columns:repeat(30, 1fr);
+      grid-template-rows:repeat(30, 1fr);
+      width:min(94vw, calc(100vh - 96px), 680px);
+      height:min(94vw, calc(100vh - 96px), 680px);
+      border:2px solid #53596e;
+      background:#11131d;
+      box-shadow:inset 0 0 30px rgba(0,0,0,.45);
+      touch-action:manipulation;
+    }
+
+    .tile{
+      border-right:1px solid var(--grid-line);
+      border-bottom:1px solid var(--grid-line);
+      padding:0;
+      margin:0;
+      appearance:none;
+      -webkit-appearance:none;
+    }
+
+    .moon-dark{background:var(--moon-dark)}
+    .moon-mid{background:var(--moon-mid)}
+    .moon-light{background:var(--moon-light)}
+    .crater{
+      background:var(--crater);
+      box-shadow:inset 0 0 0 2px rgba(0,0,0,.2);
+    }
+    .ridge{background:var(--ridge)}
+
+    .selected{
+      outline:2px solid #c8d3ff;
+      outline-offset:-2px;
+      position:relative;
+      z-index:2;
+    }
+
+    #menu{
+      display:grid;
+      grid-template-columns:repeat(5, 1fr);
+      gap:8px;
+      padding:8px;
+      background:rgba(16,19,32,.92);
+      border:1px solid var(--panel-border);
+      border-radius:16px;
+      box-shadow:0 10px 24px rgba(0,0,0,.35);
+    }
+
+    .menu-btn{
+      height:42px;
+      border:1px solid var(--button-border);
+      border-radius:13px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), transparent),
+        var(--button);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.03), 0 0 18px var(--button-glow);
+      color:transparent;
+      font-size:0;
+      position:relative;
+      touch-action:manipulation;
+    }
+
+    .menu-btn::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      transform:translate(-50%,-50%);
+      background:#aeb8d8;
+      box-shadow:0 0 12px rgba(190,205,255,.5);
+      opacity:.95;
+    }
+
+    .menu-btn:nth-child(2)::before{
+      width:18px;
+      height:10px;
+      border-radius:10px;
+    }
+
+    .menu-btn:nth-child(3)::before{
+      width:14px;
+      height:14px;
+      border-radius:3px;
+      transform:translate(-50%,-50%) rotate(45deg);
+    }
+
+    .menu-btn:nth-child(4)::before{
+      width:17px;
+      height:17px;
+      background:
+        linear-gradient(90deg, transparent 42%, #aeb8d8 42% 58%, transparent 58%),
+        linear-gradient(0deg, transparent 42%, #aeb8d8 42% 58%, transparent 58%);
+      border-radius:2px;
+      box-shadow:none;
+    }
+
+    .menu-btn:nth-child(5)::before{
+      width:18px;
+      height:18px;
+      border:2px solid #aeb8d8;
+      background:transparent;
+      box-shadow:0 0 12px rgba(190,205,255,.4);
+    }
+
+    .menu-btn:active{
+      transform:scale(.96);
+      filter:brightness(1.25);
+    }
+
+    @media (max-width: 560px){
+      body{padding:6px}
+      #app{gap:8px; padding:8px 0}
+      #stage{padding:8px; border-radius:14px}
+      #grid{
+        width:min(96vw, calc(100vh - 88px));
+        height:min(96vw, calc(100vh - 88px));
+      }
+      #menu{gap:6px; padding:7px; border-radius:14px}
+      .menu-btn{height:38px; border-radius:11px}
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <main id="stage">
+      <div id="grid" aria-label="30 by 30 moon grid"></div>
+    </main>
+
+    <nav id="menu" aria-label="Game menu">
+      <button class="menu-btn" type="button" aria-label="Menu button 1"></button>
+      <button class="menu-btn" type="button" aria-label="Menu button 2"></button>
+      <button class="menu-btn" type="button" aria-label="Menu button 3"></button>
+      <button class="menu-btn" type="button" aria-label="Menu button 4"></button>
+      <button class="menu-btn" type="button" aria-label="Menu button 5"></button>
+    </nav>
+  </div>
+
+  <script>
+    const SIZE = 30;
+    const grid = document.getElementById("grid");
+
+    function noise(x, y){
+      const n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+      return n - Math.floor(n);
+    }
+
+    function distance(x1, y1, x2, y2){
+      return Math.hypot(x1 - x2, y1 - y2);
+    }
+
+    const craterCenters = [
+      {x:6, y:8, r:3},
+      {x:21, y:9, r:4},
+      {x:9, y:21, r:4},
+      {x:23, y:23, r:3}
+    ];
+
+    let selectedTile = null;
+
+    function getTerrain(x, y){
+      for(const c of craterCenters){
+        const d = distance(x, y, c.x, c.y);
+        if(d < c.r){
+          return d > c.r - 1 ? "ridge" : "crater";
+        }
+      }
+
+      const n = noise(x, y);
+      if(n < 0.25) return "moon-dark";
+      if(n < 0.72) return "moon-mid";
+      return "moon-light";
+    }
+
+    function makeGrid(){
+      grid.innerHTML = "";
+
+      for(let y = 0; y < SIZE; y++){
+        for(let x = 0; x < SIZE; x++){
+          const tile = document.createElement("button");
+          tile.className = `tile ${getTerrain(x, y)}`;
+          tile.type = "button";
+          tile.dataset.x = x;
+          tile.dataset.y = y;
+          tile.setAttribute("aria-label", `x ${x} y ${y}`);
+
+          tile.addEventListener("click", () => {
+            if(selectedTile) selectedTile.classList.remove("selected");
+            selectedTile = tile;
+            selectedTile.classList.add("selected");
+          });
+
+          grid.appendChild(tile);
+        }
+      }
+    }
+
+    makeGrid();
+  </script>
+</body>
+</html>
