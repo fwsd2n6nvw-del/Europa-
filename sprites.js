@@ -1,0 +1,94 @@
+// sprites.js
+// Keep SVG sprites here so index.html stays clean.
+
+function alienSpriteSvg(){
+  return `
+<svg id="alienSprite" viewBox="0 0 80 108" aria-hidden="true">
+  <defs>
+    <radialGradient id="head" cx="42%" cy="27%" r="62%">
+      <stop offset="0" stop-color="#d9e2ee"/>
+      <stop offset="0.55" stop-color="#8794a4"/>
+      <stop offset="1" stop-color="#3a4350"/>
+    </radialGradient>
+    <linearGradient id="body" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#aab5c3"/>
+      <stop offset="0.55" stop-color="#596574"/>
+      <stop offset="1" stop-color="#28303a"/>
+    </linearGradient>
+    <radialGradient id="eye" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffb2a5"/>
+      <stop offset="0.22" stop-color="#ff2418"/>
+      <stop offset="0.72" stop-color="#6d0707"/>
+      <stop offset="1" stop-color="#110306"/>
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="2.1" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="40" cy="101" rx="17" ry="4" fill="#000" opacity="0.35"/>
+  <path d="M26 53 C24 62 24 75 26 92 C28 101 52 101 54 92 C56 76 56 62 54 53 C49 59 31 59 26 53Z" fill="url(#body)" stroke="#151b24" stroke-width="2"/>
+  <path d="M25 62 C18 70 16 82 18 96" fill="none" stroke="#4c5867" stroke-width="7" stroke-linecap="round"/>
+  <path d="M55 62 C62 70 64 82 62 96" fill="none" stroke="#4c5867" stroke-width="7" stroke-linecap="round"/>
+  <path d="M30 94 L27 104" stroke="#2d3744" stroke-width="6" stroke-linecap="round"/>
+  <path d="M50 94 L53 104" stroke="#2d3744" stroke-width="6" stroke-linecap="round"/>
+  <path d="M31 63 C34 68 46 68 49 63 M30 74 C34 79 46 79 50 74 M31 84 C35 88 45 88 49 84" fill="none" stroke="#c3ccd8" stroke-width="1.2" opacity=".55"/>
+  <path d="M40 4 C19 4 8 18 8 34 C8 52 22 62 40 64 C58 62 72 52 72 34 C72 18 61 4 40 4Z" fill="url(#head)" stroke="#111722" stroke-width="2.4"/>
+  <ellipse cx="26" cy="37" rx="13" ry="8" transform="rotate(18 26 37)" fill="#10141b" opacity=".95"/>
+  <ellipse cx="54" cy="37" rx="13" ry="8" transform="rotate(-18 54 37)" fill="#10141b" opacity=".95"/>
+  <ellipse cx="27" cy="38" rx="6.5" ry="5" transform="rotate(18 27 38)" fill="url(#eye)" filter="url(#glow)"/>
+  <ellipse cx="53" cy="38" rx="6.5" ry="5" transform="rotate(-18 53 38)" fill="url(#eye)" filter="url(#glow)"/>
+  <circle cx="29.5" cy="34.8" r="1.6" fill="#ffd8d2" opacity=".9"/>
+  <circle cx="55.5" cy="34.8" r="1.6" fill="#ffd8d2" opacity=".9"/>
+  <path d="M36 48 Q40 51 44 48" fill="none" stroke="#1d222b" stroke-width="1.4" stroke-linecap="round"/>
+  <ellipse cx="37.5" cy="45" rx="1.1" ry="2.5" fill="#1b2129"/>
+  <ellipse cx="42.5" cy="45" rx="1.1" ry="2.5" fill="#1b2129"/>
+  <circle cx="31" cy="19" r="2" fill="#687482" opacity=".7"/>
+  <circle cx="25" cy="24" r="1.7" fill="#687482" opacity=".55"/>
+  <circle cx="49" cy="19" r="2" fill="#687482" opacity=".7"/>
+  <circle cx="55" cy="24" r="1.7" fill="#687482" opacity=".55"/>
+  <path d="M16 96 C15 103 19 107 22 101" fill="none" stroke="#2d3744" stroke-width="3" stroke-linecap="round"/>
+  <path d="M64 96 C65 103 61 107 58 101" fill="none" stroke="#2d3744" stroke-width="3" stroke-linecap="round"/>
+</svg>`;
+}
+
+function crashedUfoSvg(){
+  return `
+<svg id="ufoSprite" viewBox="0 0 48 64" aria-hidden="true" shape-rendering="crispEdges">
+  <rect x="16" y="6" width="16" height="10" fill="#eadbb8"/>
+  <rect x="14" y="8" width="20" height="10" fill="#eadbb8"/>
+  <rect x="18" y="10" width="12" height="8" fill="#1e3557"/>
+
+  <rect x="8" y="18" width="28" height="6" fill="#eadbb8"/>
+  <rect x="6" y="24" width="30" height="20" fill="#eadbb8"/>
+  <rect x="8" y="44" width="24" height="8" fill="#eadbb8"/>
+  <rect x="12" y="52" width="12" height="4" fill="#eadbb8"/>
+
+  <rect x="32" y="30" width="4" height="10" fill="#cbb98d"/>
+  <rect x="28" y="40" width="4" height="8" fill="#cbb98d"/>
+  <rect x="20" y="46" width="4" height="6" fill="#cbb98d"/>
+
+  <rect x="24" y="24" width="4" height="4" fill="#17304e"/>
+  <rect x="24" y="28" width="4" height="4" fill="#17304e"/>
+  <rect x="20" y="32" width="4" height="4" fill="#17304e"/>
+  <rect x="24" y="36" width="4" height="4" fill="#17304e"/>
+  <rect x="20" y="40" width="4" height="4" fill="#17304e"/>
+
+  <rect x="34" y="46" width="6" height="6" fill="#eadbb8"/>
+  <rect x="36" y="48" width="6" height="6" fill="#eadbb8"/>
+
+  <rect x="12" y="56" width="12" height="2" fill="#d7c59e"/>
+  <rect x="6" y="24" width="2" height="20" fill="#d7c59e"/>
+  <rect x="8" y="18" width="28" height="2" fill="#d7c59e"/>
+
+  <rect x="14" y="6" width="2" height="10" fill="#10243e"/>
+  <rect x="32" y="6" width="2" height="12" fill="#10243e"/>
+  <rect x="8" y="18" width="28" height="2" fill="#10243e"/>
+  <rect x="6" y="24" width="2" height="20" fill="#10243e"/>
+  <rect x="36" y="24" width="2" height="16" fill="#10243e"/>
+  <rect x="8" y="44" width="24" height="2" fill="#10243e"/>
+  <rect x="12" y="52" width="12" height="2" fill="#10243e"/>
+  <rect x="34" y="46" width="2" height="6" fill="#10243e"/>
+  <rect x="36" y="48" width="2" height="6" fill="#10243e"/>
+</svg>`;
+}
