@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Moon Grid Alien</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="stage" aria-label="Moon grid game starter">
+    <section class="map-wrap">
+      <div id="board" aria-label="30 by 30 moon grid">
+        <div id="grid"></div>
+        <div id="playerLayer">
+          <div id="player"></div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="ui" aria-label="Controls">
+      <button id="leftBtn" aria-label="Move left">←</button>
+      <button id="rightBtn" aria-label="Move right">→</button>
+      <button id="upBtn" aria-label="Move up">↑</button>
+      <button id="downBtn" aria-label="Move down">↓</button>
+      <button id="actionBtn" aria-label="Action"><span class="actionIcon">✦</span></button>
+    </nav>
+  </main>
+
+<script src="map.js"></script>
+<script src="sprites.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
